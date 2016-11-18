@@ -25,6 +25,10 @@ public class drive extends OpMode {
     DcMotor lmotor0;
     DcMotor rmotor1;
     DcMotor lmotor1;
+    DcMotor sweeper;
+    DcMotor shooter0;
+    DcMotor shooter1;
+
     BeaconColorResult Result;
 
     @Override
@@ -33,6 +37,10 @@ public class drive extends OpMode {
         rmotor0 = hardwareMap.dcMotor.get("rmotor0");
         lmotor1 = hardwareMap.dcMotor.get("lmotor1");
         rmotor1 = hardwareMap.dcMotor.get("rmotor1");
+        sweeper = hardwareMap.dcMotor.get("sweeper");
+        shooter0 = hardwareMap.dcMotor.get("shooter0");
+        shooter1 = hardwareMap.dcMotor.get("shooter1");
+
         rmotor0.setDirection(DcMotor.Direction.REVERSE);
         rmotor1.setDirection(DcMotor.Direction.REVERSE);
 
@@ -77,6 +85,20 @@ public class drive extends OpMode {
             rmotor1.setPower(-ltrigger);
             lmotor0.setPower(ltrigger);
             lmotor1.setPower(ltrigger);
+
+        }
+        if (gamepad1.right_bumper==true&&gamepad1.left_bumper==false){
+            sweeper.setPower(1);
+        }
+        else if(gamepad1.left_bumper==true&&gamepad1.right_bumper==false){
+            sweeper.setPower(-1);
+        }
+        else if (gamepad1.left_bumper==false&&gamepad1.right_bumper==false){
+            sweeper.setPower(0);
+        }
+        if (gamepad1.start==true){
+            shooter0.setPower(-1);
+            shooter1.setPower(1);
 
         }
 

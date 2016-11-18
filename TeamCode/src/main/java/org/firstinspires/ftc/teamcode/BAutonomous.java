@@ -4,7 +4,6 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
@@ -16,9 +15,9 @@ import ftc.vision.ImageProcessorResult;
 /**
  * Created by pbai on 11/4/2016.
  */
-@TeleOp(name="VIRUSTest", group="OpMode")
+@TeleOp(name="BAutonomous", group="OpMode")
 
-public class VIRUSTest extends OpMode {
+public class BAutonomous extends OpMode {
     DcMotor rMotor0;
     DcMotor lMotor0;
     DcMotor rMotor1;
@@ -83,7 +82,9 @@ public class VIRUSTest extends OpMode {
         gyro.resetZAxisIntegrator();
         frameGrabber = FtcRobotControllerActivity.frameGrabber; //Get theframeGrabber
         frameGrabber.grabSingleFrame(); //Tell it to grab a frame
-        state = state.GetBeaconColor;
+        startValue = gyro.getIntegratedZValue();
+        driveForwardInit(24);
+        state = state.forward;
     }
 
     public void loop() {
@@ -122,6 +123,12 @@ public class VIRUSTest extends OpMode {
                 rMotor0.setPower(0);
                 lMotor1.setPower(0);
                 rMotor1.setPower(0);
+                break;
+            case forward:
+                if (distanceReached() == true) {
+                    beaconColorInit();
+                    state = state.stop;
+                }
                 break;
 
         }
