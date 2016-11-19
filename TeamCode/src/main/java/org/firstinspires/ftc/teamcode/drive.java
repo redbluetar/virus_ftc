@@ -101,6 +101,11 @@ public class drive extends OpMode {
             shooter1.setPower(1);
 
         }
+        if (gamepad1.start==false){
+            shooter0.setPower(0);
+            shooter1.setPower(0);
+
+        }
 
     }
 }
